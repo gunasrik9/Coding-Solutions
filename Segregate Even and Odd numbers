@@ -1,0 +1,60 @@
+import java.io.*;
+class Solution {
+    void segregateEvenOdd(int arr[]) {
+        // code here
+        int n=arr.length;
+        int count=segregate(arr,n);
+        mergesort(arr,0, count-1);
+        mergesort(arr,count,n-1);
+        //for(int k:arr) System.out.print(k+" ");
+    }
+        
+     public static int segregate(int[] arr, int n) {
+        int i = 0, j = 0;
+        while (j < n) {
+            if (arr[j] % 2 == 0) {
+                // Swap even number to the left
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+            }
+            j++;
+        }
+        return i; // `i` is the count of even numbers
+    }
+    public static void mergesort(int[] arr, int i, int j){
+        if(i<j){
+            int mid=i+(j-i)/2;
+            mergesort(arr,i,mid);
+            mergesort(arr,mid+1, j);
+            merge(arr, i, mid,j);
+        }
+    }
+    
+    public static void merge(int[] arr, int i, int mid, int j){
+        int n1=mid-i+1;
+        int n2=j-mid;
+        int[] left= new int[n1];
+        int[] right=new int[n2];
+        for(int l=0;l<=mid-i;l++){
+            left[l]=arr[i+l];
+        }
+        for(int m=0;m<j-mid;m++){
+            right[m]=arr[mid+1+m];
+        }
+        int k=i, ind1=0, ind2=0;
+        while(ind1< n1 && ind2<n2){
+            if(left[ind1]<right[ind2]){
+                arr[k++]=left[ind1];
+                ind1++;
+            }
+            else{
+                arr[k++]=right[ind2];
+                ind2++;
+            }
+        }
+        while(ind1<n1) arr[k++]=left[ind1++];
+        while(ind2<n2) arr[k++]=right[ind2++];
+    }
+}	
