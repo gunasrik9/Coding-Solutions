@@ -1,0 +1,30 @@
+class Solution {
+    public void sortColors(int[] arr) {
+        int i=0;
+        int j=0;
+        int k=arr.length-1;
+        int c=0;
+        while(j<=k){
+            if(arr[j]==0){
+                swap(arr,j, i);
+                i++;
+                j++;
+            }
+            else if(arr[j]==1){
+                j++;
+            }
+            else{
+                swap(arr,j,k);
+                k--;
+            }
+        }
+        for(int p:arr){
+            System.out.print(p);
+        }
+    }
+    public static void swap(int[] arr, int x, int y){
+        int s=arr[x];
+        arr[x]=arr[y];
+        arr[y]=s;
+    }
+}
