@@ -1,0 +1,15 @@
+class Solution {
+    public int countGoodSubstrings(String s) {
+        int cgs=0;
+        for(int i=0;i<=s.length()-3;i++){
+            HashSet<Character> hset=new HashSet<>();
+            hset.add(s.charAt(i));
+            hset.add(s.charAt(i+1));
+            hset.add(s.charAt(i+2));
+            if(hset.size()==3){
+                cgs++;
+            }
+        }
+        return cgs;
+    }
+}
