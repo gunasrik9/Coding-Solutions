@@ -37,3 +37,84 @@ class Main{
         System.out.println(res[0] + " " + res[1]);
     }
 }
+
+// USing boolean array and merge function
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        int[] ar1 = {1, 4, 5};
+        int[] ar2 = {2, 3, 6};
+        int x = 8;
+
+        int m = ar1.length;
+        int n = ar2.length;
+
+        int[] merged = new int[m + n];
+        boolean[] source = new boolean[m + n];  // true = ar1, false = ar2
+
+        // Step 1: Merge ar1 and ar2 into merged[], track source[]
+        int i = 0, j = 0, k = 0;
+        while (i < m && j < n) {
+            if (ar1[i] < ar2[j]) {
+                merged[k] = ar1[i];
+                source[k] = true;  // from ar1
+                i++;
+            } else {
+                merged[k] = ar2[j];
+                source[k] = false;  // from ar2
+                j++;
+            }
+            k++;
+        }
+        while (i < m) {
+            merged[k] = ar1[i];
+            source[k] = true;
+            i++;
+            k++;
+        }
+        while (j < n) {
+            merged[k] = ar2[j];
+            source[k] = false;
+            j++;
+            k++;
+        }
+
+        // Step 2: Two pointer search for closest pair with one from each array
+        int left = 0, right = m + n - 1;
+        int minDiff = Integer.MAX_VALUE;
+        int res1 = -1, res2 = -1;
+
+        while (left < right) {
+            if (source[left] == source[right]) {
+                // Both from same array, need one from each
+                if (source[left]) {
+                    // Both from ar1 → move left forward
+                    left++;
+                } else {
+                    // Both from ar2 → move right backward
+                    right--;
+                }
+                continue;
+            }
+
+            int sum = merged[left] + merged[right];
+            int diff = Math.abs(x - sum);
+
+            if (diff < minDiff) {
+                minDiff = diff;
+                res1 = merged[left];
+                res2 = merged[right];
+            }
+
+            // Adjust pointers
+            if (sum < x) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        System.out.println("Pair closest to " + x + " is: " + res1 + " " + res2);
+    }
+}
