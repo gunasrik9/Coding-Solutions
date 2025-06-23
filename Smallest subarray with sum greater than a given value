@@ -1,0 +1,24 @@
+import java.util.*;
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int[] arr={5, 1, 1, 1, 1, 1};
+        int target=2;
+        int minlen=arr.length+1;
+        int j=0;
+        int sum=0;
+        for(int i=0;i<arr.length;i++){
+            sum+=arr[i];
+            while(sum>target){
+                sum-=arr[j];
+                minlen=Math.min(minlen, i-j+1);
+                j++;
+            }    
+        }
+        if (minlen == arr.length + 1) {
+            System.out.println(0); 
+        } else {
+            System.out.println(minlen);
+        }
+    }
+}
