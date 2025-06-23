@@ -1,0 +1,26 @@
+import java.util.*;
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int arr1[] = {1, 4, 5, 7};
+        int arr2[] = {10, 20, 30, 40};
+        int target=50 ;
+        int[] ind=new int[2];
+        int i=0;
+        int j=arr2.length-1;
+        int minabs= Integer.MAX_VALUE;
+        while(i<arr1.length && j>=0){
+            int diff=Math.abs((arr1[i]+arr2[j])-target);
+            if(minabs>diff){
+                minabs=diff;
+                ind[0]=arr1[i];
+                ind[1]=arr2[j];
+            }
+            if(arr1[i]+arr2[j]< target){
+                i++;
+            }
+            else j--;
+        }
+        for(int p: ind) System.out.print(p+" ");
+    }
+}
