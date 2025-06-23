@@ -1,0 +1,39 @@
+import java.util.*;
+class Main{
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int[] arr = {5, 2, 7, 1, 4};
+        int target = 10;
+        int i=0,j=arr.length-1;
+        int min=Integer.MAX_VALUE;
+        int maxabs=Integer.MIN_VALUE;
+        int[] res=new int[2];
+        Arrays.sort(arr);
+        while(i<j){
+            int sum=arr[i]+arr[j];
+            int currdiff= Math.abs(target - sum);
+            if(min>currdiff){
+                min= currdiff;
+                res[0]=arr[i];
+                res[1]=arr[j];
+                maxabs=Math.abs(res[0]- res[1]);
+            }
+            if(min==currdiff){
+                int abs=Math.abs(arr[i]- arr[j]);
+                if(maxabs<abs){
+                    res[0]=arr[i];
+                    res[1]=arr[j];
+                    maxabs=abs;
+                }
+            }
+            if (sum < target) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+
+        
+        System.out.println(res[0] + " " + res[1]);
+    }
+}
